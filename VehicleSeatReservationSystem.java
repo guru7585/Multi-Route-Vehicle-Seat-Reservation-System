@@ -137,18 +137,67 @@ public class VehicleSeatReservationSystem {
 					PassangerInformation  p = new PassangerInformation(name, age, gender, mobileNo);
 					TicketDisplay t = new TicketDisplay();
 					
-					System.out.println("\n------- Booking Confirmed -------");
-					p.display();
-					t.ticket();
-					t.display();
-					System.out.println("Route : - "+selectedRoute.getRouteName());
-					System.out.println("Date : - "+travelDate);
-					System.out.println("Time : - "+String.format("%02d:00 PM", travelTime));
-					System.out.println("Vehicle : - "+selectedVehicle.getVehicleName());
-					System.out.println("Seat No. : - "+seatNo);
-					System.out.println("Amount Paid : - ₹ "+selectedVehicle.getPrice());
+				if (vid < 1 || vid > vehicles.size()) 
+					{
+					   System.out.println("Invalid Vehicle Selection. Please select between 1 to " + vehicles.size());
+					   
+					}
 					
-					break;
+					
+//					else if(selectedVehicle.bookSeat(seatNo) == -1)
+//					{
+//						System.out.println("This Seat is Not Available. Select Another Seat");
+//						break;
+//					}
+					
+					else if(vid < 1 || vid > vehicles.size())
+					{
+						System.out.println("Invalid Vehicle Selection. Please Select a Valid Vehicle");
+						break;
+					}
+					
+					else if(routeChoice < 1 || routeChoice > routes.size())
+					{
+						throw new InvalidRouteException("Invalid Route Selection. Please Choose a Valid Route.");
+					}
+					
+					
+					else if(travelDate.isBefore(today) || travelDate.isAfter(lastAllowedDate))
+					{
+						System.out.println("Invalid Date. Please Enter a Date Within the Next 8 Days");
+						
+					}
+					
+					
+					else if(travelTime != 7 && travelTime != 8)
+					{
+						System.out.print("Vehicles Operate Only At 07 : 00 and 08 : 00 PM Only. Please Enter a Valid Integer Formate Time : - ");
+					
+					}
+					
+					else if(vehicles.isEmpty())
+					{
+						System.out.println("No Vehicles Available for this Route");
+						return;
+					}
+					
+					else 
+					{
+						System.out.println("\n------- Booking Confirmed -------");
+						p.display();
+						t.ticket();
+						t.display();
+						System.out.println("Route : - "+selectedRoute.getRouteName());
+						System.out.println("Date : - "+travelDate);
+						System.out.println("Time : - "+String.format("%02d:00 PM", travelTime));
+						System.out.println("Vehicle : - "+selectedVehicle.getVehicleName());
+						System.out.println("Seat No. : - "+seatNo);
+						System.out.println("Amount Paid : - ₹ "+selectedVehicle.getPrice());
+						
+						break;
+						
+					}
+					
 					
 					
 					
@@ -170,3 +219,4 @@ public class VehicleSeatReservationSystem {
 	}
 
 }
+
